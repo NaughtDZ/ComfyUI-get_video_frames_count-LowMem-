@@ -48,7 +48,7 @@ torch
 
 4. Restart ComfyUI.
 * *Note: Ensure `ffmpeg` is available in your system PATH (Standard for ComfyUI portable versions).*
-
+(Better add --disable-smart-memory --highvram in start bat file)
 
 
 ---
