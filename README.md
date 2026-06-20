@@ -34,12 +34,19 @@ When processing a 5-minute 1080p Anime video (~9,000 frames):
    ```bash
    cd ComfyUI/custom_nodes/
 
-```
+   ```
 
-2. Clone this repository:
+2. Clone this repository
 
+Recommend Install:
 
-3. Restart ComfyUI.
+opencv-python>=4.8.0,
+
+numpy>=2.3.0,<2.4.0,
+
+torch
+
+4. Restart ComfyUI.
 * *Note: Ensure `ffmpeg` is available in your system PATH (Standard for ComfyUI portable versions).*
 
 
@@ -49,25 +56,6 @@ When processing a 5-minute 1080p Anime video (~9,000 frames):
 ## 🔄 Advanced Workflow: Pipelining with `comfyui-easy-use` For-Loop
 
 This suite is best used to create a "conveyor belt" workflow using the For-Loop feature from the `comfyui-easy-use` extension.
-
-### Workflow Architecture:
-
-1. **Get Metadata**: Pass the video path to `⚡ Ultra-Light Video Info` to get the `total_frames`.
-2. **Calculate Loop End**: Use a math node to calculate total loop iterations: `ceil(total_frames / frame_load_cap)`. Feed this into `For Loop Open -> end`.
-3. **Calculate Frame Offset**: Inside the loop, multiply the current loop `index` by your chunk size (e.g., `index * 30`).
-4. **Stream Load**: Pass the video path and the calculated offset into `⚡ Stream Video Loader (FFmpeg)` with `frame_load_cap` set to `30`.
-5. **Inference & Export**: Pipe the images into your AI models (e.g., GMFSS, APISR) and save chunks iteratively.
-
-```text
-[Video Path String] 
-       │
-       ├──> [⚡ Ultra-Light Video Info] ──(total_frames)──> [Math: Ceil(Total/Cap)] ──> [For Loop Open (end)]
-       │                                                                                      │
-       └──> [⚡ Stream Video Loader] <──(skip_first_frames) <── [Math: Index * Cap] <─────────┘
-                   │
-                   └──(IMAGE)──> [Your AI Model / Frame Interpolation] ──> [Video Combine]
-
-```
 
 ---
 
@@ -111,5 +99,4 @@ MIT License. Feel free to use, modify, and distribute.
 
 ***
 
-```
 <img width="1539" height="619" alt="image" src="https://github.com/user-attachments/assets/39decbf5-e076-4858-8f57-a95062cb4e93" />
